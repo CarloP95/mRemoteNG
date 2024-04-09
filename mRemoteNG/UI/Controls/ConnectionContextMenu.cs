@@ -11,6 +11,9 @@ using mRemoteNG.Tools.Clipboard;
 using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.UI.Panels;
+using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Window;
 
 // ReSharper disable UnusedParameter.Local
 
@@ -28,6 +31,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsNoCredentials;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectInFullscreen;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsViewOnly;
+        private ToolStripMenuItem _cMenTreeConnectWithQuickSplit;
         private ToolStripMenuItem _cMenTreeDisconnect;
         private ToolStripSeparator _cMenTreeSep2;
         private ToolStripMenuItem _cMenTreeToolsTransferFile;
@@ -88,6 +92,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsNoCredentials = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsViewOnly = new ToolStripMenuItem();
+            _cMenTreeConnectWithQuickSplit = new ToolStripMenuItem();
             _cMenTreeDisconnect = new ToolStripMenuItem();
             _cMenTreeSep1 = new ToolStripSeparator();
             _cMenTreeToolsExternalApps = new ToolStripMenuItem();
@@ -168,8 +173,10 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptionsConnectInFullscreen,
                 _cMenTreeConnectWithOptionsNoCredentials,
                 _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting,
-                _cMenTreeConnectWithOptionsViewOnly
+                _cMenTreeConnectWithOptionsViewOnly,
+                _cMenTreeConnectWithQuickSplit
             });
+
             _cMenTreeConnectWithOptions.Name = "_cMenTreeConnectWithOptions";
             _cMenTreeConnectWithOptions.Size = new System.Drawing.Size(199, 22);
             _cMenTreeConnectWithOptions.Text = "Connect (with options)";
@@ -224,6 +231,16 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Size = new System.Drawing.Size(245, 22);
             _cMenTreeConnectWithOptionsViewOnly.Text = Language.ConnectInViewOnlyMode;
             _cMenTreeConnectWithOptionsViewOnly.Click += ConnectWithOptionsViewOnlyOnClick;
+            //
+            // _cMenTreeConnectWithQuickSplit
+            //
+            _cMenTreeConnectWithQuickSplit.Image = Properties.Resources.AppearanceEditor_16x;
+            _cMenTreeConnectWithQuickSplit.Name =
+                "_cMenTreeConnectWithQuickSplit";
+            _cMenTreeConnectWithQuickSplit.Size = new System.Drawing.Size(245, 22);
+            _cMenTreeConnectWithQuickSplit.Text = Language.ConnectWithQuickSplit;
+            _cMenTreeConnectWithQuickSplit.Click += OnQuickSplitConnectingClicked;
+            //
             // 
             // cMenTreeDisconnect
             // 
@@ -761,6 +778,40 @@ namespace mRemoteNG.UI.Controls
             var connectionTarget = _connectionTree.SelectedNode as ContainerInfo
                                    ?? _connectionTree.SelectedNode;
             _connectionInitiator.OpenConnection(connectionTarget, ConnectionInfo.Force.ViewOnly);
+        }
+
+        private void OnQuickSplitConnectingClicked(object sender, EventArgs e)
+        {
+            var panelAdder = new PanelAdder();
+            var pname = panelAdder.SuggestPanelName("QuickSplit");
+
+            var newConnectionWindow = panelAdder.AddPanel(pname);
+            if (newConnectionWindow == null)
+            {
+                throw new Exception("Can't find the Connection Window to attach DockContent");
+            }
+
+            var newDockPanel = newConnectionWindow.DockPanel;
+            if (newDockPanel == null)
+            {
+                throw new Exception("Can't find the dock panel to split");
+            }
+
+            _connectionTree.SelectedNode.Panel = pname;
+
+            var selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            if (selectedNodeAsContainer != null)
+                _connectionInitiator.OpenConnection(selectedNodeAsContainer,
+                                                    //ConnectionInfo.Force.OverridePanel |
+                                                    ConnectionInfo.Force.DoNotJump);
+            else
+                _connectionInitiator.OpenConnection(_connectionTree.SelectedNode,
+                                                    //ConnectionInfo.Force.OverridePanel |
+                                                    ConnectionInfo.Force.DoNotJump);
+
+            var lastAddedDoc = newDockPanel.Documents.Last();
+            //lastAddedDoc.DockHandler.DockTo(newDockPanel, DockStyle.Right);
+            lastAddedDoc.DockHandler.DockTo(lastAddedDoc.DockHandler.Pane, DockStyle.Right, -1);
         }
 
         private void OnDisconnectClicked(object sender, EventArgs e)

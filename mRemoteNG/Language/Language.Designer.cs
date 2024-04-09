@@ -1076,6 +1076,15 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("ConnectInViewOnlyMode", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connect with Quick Split panel.
+        /// </summary>
+        internal static string ConnectWithQuickSplit {
+            get {
+                return ResourceManager.GetString("ConnectWithQuickSplit", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Connection.

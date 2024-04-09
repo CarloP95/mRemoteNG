@@ -38,6 +38,17 @@ namespace mRemoteNG.UI.Panels
                 ?? false;
         }
 
+        public string SuggestPanelName(string panelNamePrompt)
+        {
+            var name = Runtime.WindowList?.OfType<ConnectionWindow>()
+                .Where(w => w.TabText.StartsWith(panelNamePrompt))
+                .OrderBy(w => w.TabText)
+                .LastOrDefault()?
+                .TabText ?? string.Empty;
+            var newIndex = int.Parse(name.Substring(panelNamePrompt.Length)) + 1;
+            return $"{panelNamePrompt}{newIndex}";
+        }
+
         private static void ShowConnectionWindow(ConnectionWindow connectionForm)
         {
             connectionForm.Show(FrmMain.Default.pnlDock, DockState.Document);

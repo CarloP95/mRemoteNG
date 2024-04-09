@@ -31,8 +31,8 @@ namespace mRemoteNG.UI.Forms
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this._Ok = new MrngButton();
-            this.buttonCancel = new MrngButton();
+            this._Ok = new mRemoteNG.UI.Controls.MrngButton();
+            this.buttonCancel = new mRemoteNG.UI.Controls.MrngButton();
             this.textBox = new mRemoteNG.UI.Controls.MrngTextBox();
             this.label = new mRemoteNG.UI.Controls.MrngLabel();
             this.tableLayoutPanel1.SuspendLayout();
@@ -55,14 +55,14 @@ namespace mRemoteNG.UI.Forms
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 81);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(292, 81);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // _Ok
             // 
-            this._Ok._mice = MrngButton.MouseState.HOVER;
+            this._Ok._mice = mRemoteNG.UI.Controls.MrngButton.MouseState.OUT;
             this._Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._Ok.Location = new System.Drawing.Point(125, 55);
+            this._Ok.Location = new System.Drawing.Point(133, 55);
             this._Ok.Name = "_Ok";
             this._Ok.Size = new System.Drawing.Size(75, 23);
             this._Ok.TabIndex = 0;
@@ -72,10 +72,10 @@ namespace mRemoteNG.UI.Forms
             // 
             // buttonCancel
             // 
-            this.buttonCancel._mice = MrngButton.MouseState.HOVER;
+            this.buttonCancel._mice = mRemoteNG.UI.Controls.MrngButton.MouseState.OUT;
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(206, 55);
+            this.buttonCancel.Location = new System.Drawing.Point(214, 55);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -87,9 +87,10 @@ namespace mRemoteNG.UI.Forms
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.textBox, 3);
             this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox.Location = new System.Drawing.Point(3, 27);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(278, 22);
+            this.textBox.Size = new System.Drawing.Size(286, 44);
             this.textBox.TabIndex = 2;
             // 
             // label
@@ -99,20 +100,20 @@ namespace mRemoteNG.UI.Forms
             this.label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label.Location = new System.Drawing.Point(3, 0);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(278, 24);
+            this.label.Size = new System.Drawing.Size(286, 24);
             this.label.TabIndex = 3;
             this.label.Text = "Label";
             this.label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FrmInputBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(284, 81);
+            this.ClientSize = new System.Drawing.Size(292, 81);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
